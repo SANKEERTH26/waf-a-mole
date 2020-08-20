@@ -93,6 +93,20 @@ def change_tautologies(payload):
 
     return new_payload
 
+def bypass_common_filters(payload):
+    if payload[0]=="'":
+        c = "%00'"
+    if payload[0]=='"':
+        c = "%00'"
+    if payload[0]=='#':
+        c = "%00'"
+    if payload[0]==';':
+        c = "%00'"
+    try:
+        mut_payload = c+payload
+    except:
+        mut_payload = payload
+    return mut_payload
 
 def spaces_to_comments(payload):
     # TODO: make it selectable (can be mixed with other strategies)
