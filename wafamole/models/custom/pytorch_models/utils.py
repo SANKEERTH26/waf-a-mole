@@ -3,9 +3,12 @@ import numpy as np
 import json
 def build_dictionary(query_list, model_number):
     new_list = query_list
-    new_list = new_list.lower()
-    new_list = re.sub(re.compile("/\*.*?\*/"), " ", new_list)
-    new_list = re.sub(re.compile("\\n|\\t|\\r"), " ", new_list)
+    if(model_number==3):
+        new_list = new_list.lower()
+    if(model_number == 2 or model_number == 3):
+        new_list = re.sub(re.compile("/\*.*?\*/"), " ", new_list)
+    if(model_number==3):
+        new_list = re.sub(re.compile("\\n|\\t|\\r"), " ", new_list)
     new_list = re.sub(re.compile("\d+"), " ", new_list)
     new_list = re.sub(r"(\W)", r" \1 ", new_list)
     elements = new_list.split()

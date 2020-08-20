@@ -103,8 +103,8 @@ class EvasionEngine(CoreEngine):
             print("[!] Execution timed out")
 
         print(
-            "Reached confidence {}\nwith payload\n{}".format(
-                min_confidence, min_payload
+            "Reached confidence {}\nwith payload\n{} \n and mutation Rounds = {}".format(
+                min_confidence, min_payload, 1000-max_rounds
             )
         )
 

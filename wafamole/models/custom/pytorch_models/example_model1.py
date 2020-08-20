@@ -34,7 +34,7 @@ class PyTorchExample(PyTorchModelWrapper):
         p = re.compile('.*ModelWAF(\d+).*')
         model_num = p.findall(filepath)
         self.model_number = model_num[0]
-        self.vocabfile = '/Users/saisankeerthreddymadem/Downloads/vocab' + self.model_number + '.json'
+        self.vocabfile = 'vocab' + self.model_number + '.json'
         f = open(self.vocabfile)
         self.vocab_to_int = json.load(f)
         vocab_size = len(self.vocab_to_int) + 1  # +1 for the 0 padding
@@ -88,6 +88,6 @@ class PyTorchExample(PyTorchModelWrapper):
 
         feature_vector = torch.from_numpy(feature_vector)
         y_pred = ut.predict(self._pytorch_classifier, feature_vector)
-        print(y_pred)
+        # print(y_pred)
         return y_pred
 
