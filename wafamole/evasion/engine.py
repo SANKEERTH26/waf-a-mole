@@ -14,6 +14,7 @@ class CoreEngine(object, metaclass=ABCMeta):
 		# Some mutations do not apply to some payloads
 		# This removes duplicate payloads
 		payloads = {fuzzer.fuzz() for _ in range(round_size)}
+		# print(payloads)
 		results = map(self._model.classify, payloads)
 		confidence, payload = min(zip(results, payloads))
 		return confidence, payload

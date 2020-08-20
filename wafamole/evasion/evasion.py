@@ -67,7 +67,7 @@ class EvasionEngine(CoreEngine):
         type_check(round_size, int, "round_size")
         type_check(timeout, int, "timeout")
         type_check(threshold, float, "threshold")
-
+        # print(payload)
         def _signal_handler(signum, frame):
             raise TimeoutError()
 

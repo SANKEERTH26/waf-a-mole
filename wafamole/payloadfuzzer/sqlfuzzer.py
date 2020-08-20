@@ -21,6 +21,7 @@ def reset_inline_comments(payload: str):
     Returns:
         str: payload modified
     """
+    # print("10")
     positions = list(re.finditer(r"/\*[^(/\*|\*/)]*\*/", payload))
 
     if not positions:
@@ -47,7 +48,7 @@ def logical_invariant(payload):
 
     :param payload:
     """
-
+    # print("9")
     pos = re.search("(#|-- )", payload)
 
     if not pos:
@@ -77,7 +78,7 @@ def logical_invariant(payload):
 
 
 def change_tautologies(payload):
-
+    # print("8")
     results = list(re.finditer(r'((?<=[^\'"\d\wx])\d+(?=[^\'"\d\wx]))=\1', payload))
     if not results:
         return payload
@@ -94,21 +95,24 @@ def change_tautologies(payload):
     return new_payload
 
 def bypass_common_filters(payload):
-    if payload[0]=="'":
+    # print("7")
+    new_payload = payload[:]
+    if new_payload[0]=="'":
+        c = "%00"
+    if new_payload[0]=='"':
         c = "%00'"
-    if payload[0]=='"':
+    if new_payload[0]=='#':
         c = "%00'"
-    if payload[0]=='#':
-        c = "%00'"
-    if payload[0]==';':
+    if new_payload[0]==';':
         c = "%00'"
     try:
-        mut_payload = c+payload
+        mut_payload = c + new_payload[1:]
     except:
-        mut_payload = payload
+        mut_payload = new_payload
     return mut_payload
 
 def spaces_to_comments(payload):
+    # print("6")
     # TODO: make it selectable (can be mixed with other strategies)
     symbols = {" ": ["/**/"], "/**/": [" "]}
 
@@ -129,7 +133,7 @@ def spaces_to_comments(payload):
 
 
 def spaces_to_whitespaces_alternatives(payload):
-
+    # print("5")
     symbols = {
         " ": ["\t", "\n", "\f", "\v", "\xa0"],
         "\t": [" ", "\n", "\f", "\v", "\xa0"],
@@ -162,14 +166,14 @@ def random_case(payload):
         if random.random() > 0.5:
             c = c.swapcase()
         new_payload.append(c)
-
+    # print("1")
     return "".join(new_payload)
 
 
 def comment_rewriting(payload):
 
     p = random.random()
-
+    # print("2")
     if p < 0.5 and ("#" in payload or "-- " in payload):
         return payload + random_string(2)
     elif p >= 0.5 and ("*/" in payload):
@@ -179,7 +183,7 @@ def comment_rewriting(payload):
 
 
 def swap_int_repr(payload):
-
+    # print("3")
     candidates = list(re.finditer(r'(?<=[^\'"\d\wx])\d+(?=[^\'"\d\wx])', payload))
 
     if not candidates:
@@ -201,7 +205,7 @@ def swap_int_repr(payload):
 
 
 def swap_keywords(payload):
-
+    # print("4")
     symbols = {
         # OR
         "||": [" OR ", " || "],
@@ -250,6 +254,7 @@ class SqlFuzzer(object):
         change_tautologies,
         logical_invariant,
         reset_inline_comments,
+        bypass_common_filters,
     ]
 
     def __init__(self, payload):

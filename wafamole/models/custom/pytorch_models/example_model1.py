@@ -79,6 +79,7 @@ class PyTorchExample(PyTorchModelWrapper):
         Returns:
             probability of being a sql injection.
         """
+        # print(value)
         if self._pytorch_classifier is None:
             raise ModelNotLoadedError()
         feature_vector = self.extract_features(value)
@@ -88,6 +89,6 @@ class PyTorchExample(PyTorchModelWrapper):
 
         feature_vector = torch.from_numpy(feature_vector)
         y_pred = ut.predict(self._pytorch_classifier, feature_vector)
-        print(y_pred)
+        # print(y_pred)
         return y_pred
 
