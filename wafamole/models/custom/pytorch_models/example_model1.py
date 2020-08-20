@@ -34,7 +34,7 @@ class PyTorchExample(PyTorchModelWrapper):
         p = re.compile('.*ModelWAF(\d+).*')
         model_num = p.findall(filepath)
         self.model_number = model_num[0]
-        self.vocabfile = 'vocab' + self.model_number + '.json'
+        self.vocabfile = './vocab' + self.model_number + '.json'
         f = open(self.vocabfile)
         self.vocab_to_int = json.load(f)
         vocab_size = len(self.vocab_to_int) + 1  # +1 for the 0 padding
@@ -79,6 +79,7 @@ class PyTorchExample(PyTorchModelWrapper):
         Returns:
             probability of being a sql injection.
         """
+        # print(value)
         if self._pytorch_classifier is None:
             raise ModelNotLoadedError()
         feature_vector = self.extract_features(value)
