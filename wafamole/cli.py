@@ -3,7 +3,7 @@ import pickle
 from wafamole.evasion import EvasionEngine
 from wafamole.evasion.random import RandomEvasionEngine
 from wafamole.exceptions.models_exceptions import UnknownModelError
-from wafamole.models import TokenClassifierWrapper, WafBrainWrapper, SQLiGoTWrapper
+from wafamole.models import TokenClassifierWrapper, WafBrainWrapper, SQLiGoTWrapper, PyTorchExample
 
 
 @click.group()
@@ -61,6 +61,8 @@ def evade(
         model = SQLiGoTWrapper(undirected=False, proportional=True).load(model_path)
     elif model_type == "waf-brain":
         model = WafBrainWrapper(model_path)
+    elif model_type == "PyTorch":
+        model = PyTorchExample(model_path)
     else:
         raise UnknownModelError("Unsupported model type")
 

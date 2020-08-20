@@ -14,7 +14,7 @@ setuptools.setup(
     # url="https://github.com/pypa/sampleproject",
     packages=setuptools.find_packages(),
     package_dir={"wafamole" : "wafamole"},
-    package_data={"wafamole" : ["tokenizer/*","models/custom/example_models/*"]},
+    package_data={"wafamole" : ["tokenizer/*","models/custom/example_models/*", "models/custom/pytorch_models/*"]},
     include_package_data=True,
     classifiers=[
         "Programming Language :: Python :: 3",

@@ -32,7 +32,18 @@ class ModelNotLoadedError(Exception):
     def __init__(self, *args, **kwargs):
         return super().__init__(*args, **kwargs)
 
+class NotPyTorchModelError(Exception):
+    """No PyTorch model exception"""
 
+    def __init__(self, *args, **kwargs):
+        return super().__init__(*args, **kwargs)
+
+
+class PyTorchInternalError(Exception):
+    """Internal PyTorch exception"""
+
+    def __init__(self, *args, **kwargs):
+        return super().__init__(*args, **kwargs)
 class UnknownModelError(Exception):
     """Unknown model exception"""
 
